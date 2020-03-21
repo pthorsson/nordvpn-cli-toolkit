@@ -1,4 +1,5 @@
 import { argv } from 'yargs';
+import { join } from 'path';
 import { config } from 'dotenv';
 import {
   getCountries,
@@ -9,7 +10,7 @@ import { outputData, outputErrorAndExit } from './helpers/output';
 import { appendToLog } from './helpers/append-log';
 
 // Init dotenv
-config();
+config({ path: join(__dirname, '../.env') });
 
 const ENABLE_LOGGING = process.env.ENABLE_LOGGING == 'true';
 const AUTH_FILE = (argv.authFile as string) || process.env.AUTH_FILE;
