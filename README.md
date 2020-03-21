@@ -14,7 +14,7 @@ Here are the included scripts and what they do.
 
 Script: `bin/get-connection-status`
 
-Will make an request against the NordVPN get user status endpoint and return wether connected to NordVPN or not.
+Will make an request against the NordVPN `get_user_info_data` endpoint and return wether connected to NordVPN or not.
 
 ### Example
 
