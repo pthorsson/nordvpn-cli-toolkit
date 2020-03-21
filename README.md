@@ -2,6 +2,8 @@
 
 A toolkit of scripts for easing the use of NordVPN with OpenVPN in command line.
 
+_**NOTE:** This script is dependent on the currently available endpoints for fetching required data from NordVPNs website. If they change them, these scripts will break._
+
 _**NOTE:** For now this does not support global installation and should only be runned directly by the built script files from the repository directory._
 
 ## Included scripts
