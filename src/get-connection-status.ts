@@ -1,6 +1,6 @@
-import { getConnectionStatus } from './helpers/fetch-data';
 import * as chalk from 'chalk';
 import printTable from './helpers/print-table';
+import { getConnectionStatus } from './helpers/fetch-data';
 
 (async () => {
   const connectionStatus = await getConnectionStatus();
