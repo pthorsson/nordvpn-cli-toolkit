@@ -13,8 +13,9 @@ export const appendToLog = (data: string) => {
     .slice(0, -1)
     .replace('T', ' ');
 
-  const fileName = `recommended-server_${date.getFullYear()}-${date
-    .getMonth()
+  const fileName = `recommended-server_${date.getFullYear()}-${(
+    date.getMonth() + 1
+  )
     .toString()
     .padStart(2, '0')}`;
 
