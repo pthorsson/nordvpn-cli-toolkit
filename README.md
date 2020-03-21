@@ -47,7 +47,7 @@ Will fetch and output the OpenVPN config contents of a recommended server. The N
 $ bin/get-recommended-server-config --country SE --offset 2 > nordvpn-config.conf
 ```
 
-_(Fetches config content for recommended server nr 3 for Sweden)_
+_(Fetches config content for recommended server nr 3 for Sweden and writes it to `nordvpn-config.conf`)_
 
 ## Prerequisites
 
