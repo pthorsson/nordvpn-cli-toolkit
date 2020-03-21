@@ -16,7 +16,7 @@ Script: `bin/get-connection-status`
 
 Will make an request against the NordVPN `get_user_info_data` endpoint and return wether connected to NordVPN or not.
 
-### Example
+#### Example
 
 ```
 $ bin/get-connection-status
@@ -41,7 +41,7 @@ Will fetch and output the OpenVPN config contents of a recommended server. The N
 - `--offset <offset>` - Pick server in recommended servers list with offset. Valid values `0 - 4`. Defaults to `0`.
 - `--auth-file <path-to-auth-file>` - Path to auth file to be included in the config file. Defaults to `AUTH_FILE` in `.env`.
 
-### Example
+#### Example
 
 ```
 $ bin/get-recommended-server-config --country SE --offset 2 > nordvpn-config.conf
