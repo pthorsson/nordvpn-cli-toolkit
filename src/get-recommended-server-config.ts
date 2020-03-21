@@ -1,15 +1,17 @@
+import { argv } from 'yargs';
+import { config } from 'dotenv';
 import {
   getCountries,
   getRecommendedServers,
   getConfigFileDataByServer,
 } from './helpers/fetch-data';
 import { outputData, outputErrorAndExit } from './helpers/output';
-import { argv } from 'yargs';
-import { config } from 'dotenv';
+import { appendToLog } from './helpers/append-log';
 
 // Init dotenv
 config();
 
+const ENABLE_LOGGING = process.env.ENABLE_LOGGING == 'true';
 const AUTH_FILE = (argv.authFile as string) || process.env.AUTH_FILE;
 const COUNTRY_CODE = (argv.country as string) || process.env.DEFAULT_COUNTRY;
 const RECOMMENDED_SERVER_OFFSET =
@@ -43,11 +45,16 @@ const RECOMMENDED_SERVER_OFFSET =
     outputErrorAndExit(`No config data returnd - aboring`);
   }
 
-  if (AUTH_FILE && AUTH_FILE.length)
+  if (AUTH_FILE && AUTH_FILE.length) {
     configFileContent = configFileContent.replace(
       'auth-user-pass',
       `auth-user-pass ${AUTH_FILE}`
     );
+  }
+
+  if (ENABLE_LOGGING) {
+    appendToLog(`${recommendedServer.hostname}\t${recommendedServer.station}`);
+  }
 
   outputData(configFileContent);
 })();
