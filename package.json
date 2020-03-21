@@ -1,0 +1,31 @@
+{
+  "name": "nordvpn-cli-toolkit",
+  "version": "0.1.0",
+  "repository": "git@github.com:pthorsson/nordvpn-cli-toolkit.git",
+  "author": "Patrik Thorsson <patrik@thorsson.io>",
+  "license": "none",
+  "private": true,
+  "bin": {
+    "get-recommended-server-config": "./bin/get-recommended-server-config",
+    "get-connection-status": "./bin/get-connection-status"
+  },
+  "scripts": {
+    "dev": "run-s clean && tsc -w",
+    "build": "run-s clean && tsc",
+    "clean": "rm -rf .build"
+  },
+  "dependencies": {
+    "@types/node-fetch": "^2.5.5",
+    "@types/table": "^4.0.7",
+    "@types/yargs": "^15.0.4",
+    "chalk": "^3.0.0",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.0",
+    "table": "^5.4.6",
+    "typescript": "^3.8.3",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

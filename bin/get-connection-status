@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+try {
+  require('../.build/get-connection-status');
+} catch (error) {
+  if (error.code === 'MODULE_NOT_FOUND') {
+    console.log(
+      `nordvpn-cli-toolkit is not built! Please go to repo directory, run 'yarn build' and then try again.`
+    );
+  } else {
+    console.log('ERROR - Could not run nvpn for some reason :(\n');
+    console.log(error);
+  }
+}
