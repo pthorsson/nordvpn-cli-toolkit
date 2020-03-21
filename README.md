@@ -2,9 +2,9 @@
 
 A toolkit of scripts for easing the use of NordVPN with OpenVPN in command line.
 
-_**NOTE:** This script is dependent on the currently available endpoints for fetching required data from NordVPNs website. If they change them, these scripts will break._
+_**NOTE:** This script is dependent on the currently available endpoints for fetching required data from NordVPN's website. If they change them, these scripts will break._
 
-_**NOTE:** For now this does not support global installation and should only be runned directly by the built script files from the repository directory._
+_**NOTE:** For now this does not support global installation and should only be run directly by the built script files from the repository directory._
 
 ## Included scripts
 
@@ -14,9 +14,9 @@ Here are the included scripts and what they do.
 
 Script: `bin/get-connection-status`
 
-Will make an request against the NordNPV get user status endpoint and return wether connected to NordVPN or not.
+Will make an request against the NordVPN get user status endpoint and return wether connected to NordVPN or not.
 
-### Eample
+### Example
 
 ```
 $ bin/get-connection-status
@@ -41,7 +41,7 @@ Will fetch and output the OpenVPN config contents of a recommended server. The N
 - `--offset <offset>` - Pick server in recommended servers list with offset. Valid values `0 - 4`. Defaults to `0`.
 - `--auth-file <path-to-auth-file>` - Path to auth file to be included in the config file. Defaults to `AUTH_FILE` in `.env`.
 
-### Eample
+### Example
 
 ```
 $ bin/get-recommended-server-config --country SE --offset 2 > nordvpn-config.conf
