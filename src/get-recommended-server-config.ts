@@ -25,7 +25,7 @@ const RECOMMENDED_SERVER_OFFSET =
 
   if (!country || !country.id) {
     outputErrorAndExit(
-      `Country with code "${COUNTRY_CODE}" not found - aboring`
+      `Country with code "${COUNTRY_CODE}" not found - aborting`
     );
   }
 
@@ -34,7 +34,7 @@ const RECOMMENDED_SERVER_OFFSET =
   const recommendedServer = recommendedServers[RECOMMENDED_SERVER_OFFSET];
 
   if (!recommendedServer || !recommendedServer.hostname) {
-    outputErrorAndExit(`Recommended server not found - aboring`);
+    outputErrorAndExit(`Recommended server not found - aborting`);
   }
 
   // Fetching config file content for recommended server
@@ -43,7 +43,7 @@ const RECOMMENDED_SERVER_OFFSET =
   );
 
   if (!configFileContent) {
-    outputErrorAndExit(`No config data returnd - aboring`);
+    outputErrorAndExit(`No config data returned - aborting`);
   }
 
   if (AUTH_FILE && AUTH_FILE.length) {
