@@ -10,7 +10,7 @@ import { config } from 'dotenv';
 // Init dotenv
 config();
 
-const AUTH_FILE = (argv.authFile as string) || process.env.CREDENTIALS_FILE;
+const AUTH_FILE = (argv.authFile as string) || process.env.AUTH_FILE;
 const COUNTRY_CODE = (argv.country as string) || process.env.DEFAULT_COUNTRY;
 const RECOMMENDED_SERVER_OFFSET =
   Math.max(0, Math.min(4, Math.round((argv.offset as number) || 0))) || 0;
