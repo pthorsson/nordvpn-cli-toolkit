@@ -2,7 +2,7 @@ import { table, getBorderCharacters } from 'table';
 
 const printTable = (data: any[][]) =>
   process.stdout.write(
-    table(data, {
+    `${table(data, {
       border: getBorderCharacters('void'),
       columnDefault: {
         paddingLeft: 0,
@@ -11,7 +11,7 @@ const printTable = (data: any[][]) =>
       drawHorizontalLine: () => {
         return false;
       },
-    })
+    })}\n`
   );
 
 export default printTable;
