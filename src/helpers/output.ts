@@ -1,5 +1,5 @@
 export const outputErrorAndExit = (message: string) => {
-  process.stderr.write(message);
+  process.stderr.write(`\n${message}\n`);
   process.exit(1);
 };
 

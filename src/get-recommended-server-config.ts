@@ -21,7 +21,12 @@ const RECOMMENDED_SERVER_OFFSET =
 (async () => {
   // Fetching countries and pick out selected country
   const countries = await getCountries();
-  const country = countries.find(({ code }) => code === COUNTRY_CODE);
+
+  if (countries.error || !countries.data) {
+    outputErrorAndExit(`Error fetching countries\n\n${countries.error}`);
+  }
+
+  const country = countries.data.find(({ code }) => code === COUNTRY_CODE);
 
   if (!country || !country.id) {
     outputErrorAndExit(
@@ -31,20 +36,29 @@ const RECOMMENDED_SERVER_OFFSET =
 
   // Fetching recommended servers and picks one by given index
   const recommendedServers = await getRecommendedServers(country.id);
-  const recommendedServer = recommendedServers[RECOMMENDED_SERVER_OFFSET];
+
+  if (recommendedServers.error || !recommendedServers.data) {
+    outputErrorAndExit(
+      `Error fetching recommended servers\n\n${recommendedServers.error}`
+    );
+  }
+
+  const recommendedServer = recommendedServers.data[RECOMMENDED_SERVER_OFFSET];
 
   if (!recommendedServer || !recommendedServer.hostname) {
     outputErrorAndExit(`Recommended server not found - aborting`);
   }
 
   // Fetching config file content for recommended server
-  let configFileContent = await getConfigFileDataByServer(
-    recommendedServer.hostname
-  );
+  let configFile = await getConfigFileDataByServer(recommendedServer.hostname);
 
-  if (!configFileContent) {
-    outputErrorAndExit(`No config data returned - aborting`);
+  if (configFile.error || !configFile.data || !configFile.data.length) {
+    outputErrorAndExit(
+      `Error fetching config file content\n\n${configFile.error}`
+    );
   }
+
+  let configFileContent = configFile.data;
 
   if (AUTH_FILE && AUTH_FILE.length) {
     configFileContent = configFileContent.replace(

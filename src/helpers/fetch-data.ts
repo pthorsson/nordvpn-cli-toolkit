@@ -35,19 +35,16 @@ const BASE_URL = 'https://nordvpn.com/wp-admin/admin-ajax.php';
 /**
  * Fetches available countries.
  */
-export const getCountries = async (): Promise<NordVPN.Country[]> => {
+export const getCountries = async (): Response<NordVPN.Country[]> => {
   try {
     const res = await fetch(`${BASE_URL}?action=servers_countries&lang=en`);
     const countries = await res.json();
 
-    validateRequest(res);
+    validateResponse(res);
 
-    return countries;
+    return { error: null, data: countries };
   } catch (error) {
-    process.stderr.write(
-      `Could not fetch countries from nordvpn servers - aborting\n\n${error.toString()}`
-    );
-    process.exit(1);
+    return { error, data: null };
   }
 };
 
@@ -56,7 +53,7 @@ export const getCountries = async (): Promise<NordVPN.Country[]> => {
  */
 export const getRecommendedServers = async (
   countryId: number
-): Promise<NordVPN.RecommendedServer[]> => {
+): Response<NordVPN.RecommendedServer[]> => {
   const country = encodeURIComponent(`{"country_id":${countryId}}`);
 
   try {
@@ -65,14 +62,11 @@ export const getRecommendedServers = async (
     );
     const recommendedServers = await res.json();
 
-    validateRequest(res);
+    validateResponse(res);
 
-    return recommendedServers;
+    return { error: null, data: recommendedServers };
   } catch (error) {
-    process.stderr.write(
-      `Could not fetch recommended servers from nordvpn servers - aborting\n\n${error.toString()}`
-    );
-    process.exit(1);
+    return { error, data: null };
   }
 };
 
@@ -84,7 +78,7 @@ export const getConnectionStatus = async (): Response<NordVPN.ConnectionStatus> 
     const res = await fetch(`${BASE_URL}?action=get_user_info_data`);
     const connectionStatus = await res.json();
 
-    validateRequest(res);
+    validateResponse(res);
 
     return { error: null, data: connectionStatus };
   } catch (error) {
@@ -98,15 +92,25 @@ export const getConnectionStatus = async (): Response<NordVPN.ConnectionStatus> 
 export const getConfigFileDataByServer = async (
   serverAddress: string,
   protocol: 'tcp' | 'udp' = 'tcp'
-) => {
+): Response<string> => {
   const url = `https://downloads.nordcdn.com/configs/files/ovpn_${protocol}/servers/`;
-  const res = await fetch(`${url}/${serverAddress}.${protocol}.ovpn`);
-  const data = await res.text();
+  try {
+    const res = await fetch(`${url}/${serverAddress}.${protocol}.ovpn`);
+    const configFileContent = await res.text();
 
-  return data;
+    validateResponse(res);
+
+    return { error: null, data: configFileContent };
+  } catch (error) {
+    return { error, data: null };
+  }
 };
 
-const validateRequest = (res: ResponseInit) => {
+/**
+ * Checks if the status code of the response is anything other than 200
+ * and throws an error if so.
+ */
+const validateResponse = (res: ResponseInit) => {
   if (res.status !== 200) {
     throw new Error(`${res.status} - ${res.statusText}\nRequest: ${res.url}\n`);
   }
