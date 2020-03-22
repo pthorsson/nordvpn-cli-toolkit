@@ -25,6 +25,11 @@ https://downloads.nordcdn.com/configs/files/ovpn_tcp/servers/<server-address>.tc
 server-address = ex. se177.nordvpn.com
 */
 
+type Response<T> = Promise<{
+  error: Error | null;
+  data: T | null;
+}>;
+
 const BASE_URL = 'https://nordvpn.com/wp-admin/admin-ajax.php';
 
 /**
@@ -74,19 +79,16 @@ export const getRecommendedServers = async (
 /**
  * Fetches current connection status.
  */
-export const getConnectionStatus = async (): Promise<NordVPN.ConnectionStatus> => {
+export const getConnectionStatus = async (): Response<NordVPN.ConnectionStatus> => {
   try {
     const res = await fetch(`${BASE_URL}?action=get_user_info_data`);
     const connectionStatus = await res.json();
 
     validateRequest(res);
 
-    return connectionStatus;
+    return { error: null, data: connectionStatus };
   } catch (error) {
-    process.stderr.write(
-      `Could not fetch connection status from nordvpn servers - aborting\n\n${error.toString()}`
-    );
-    process.exit(1);
+    return { error, data: null };
   }
 };
 

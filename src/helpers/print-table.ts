@@ -1,7 +1,7 @@
 import { table, getBorderCharacters } from 'table';
 
 const printTable = (data: any[][]) =>
-  console.log(
+  process.stdout.write(
     table(data, {
       border: getBorderCharacters('void'),
       columnDefault: {

@@ -1,6 +1,6 @@
 # NordVPN CLI Toolkit
 
-A toolkit of scripts for easing the use of NordVPN with OpenVPN in command line.
+A toolkit of scripts for easing the use of [NordVPN](https://nordvpn.com/) with OpenVPN in command line.
 
 _**NOTE:** This script is dependent on the currently available endpoints for fetching required data from NordVPN's website. If they change them, these scripts will break._
 
@@ -14,7 +14,12 @@ Here are the included scripts and what they do.
 
 Script: `bin/get-connection-status`
 
-Will make an request against the NordVPN `get_user_info_data` endpoint and return wether connected to NordVPN or not.
+Will make an request against the NordVPN `get_user_info_data` endpoint and return wether connected to NordVPN or not. Script will exit with code `0` or connected to NordVPN, otherwise it will exit with code `1`.
+
+#### Options
+
+- `--minimal` - Will print `CONNECTED` or `NOT_CONNECTED` depending on connection status. In case of error such as no internet connection this will print `ERROR`.
+- `--silent` - Will not print anything and only exit script with exit code `0` or `1`, see description above.
 
 #### Example
 
